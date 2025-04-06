@@ -1,0 +1,16 @@
+// Render.com deployment configuration
+{
+  "name": "mandelbro-server",
+  "env": "node",
+  "buildCommand": "npm install",
+  "startCommand": "node server.js",
+  "plan": "free",
+  "region": "ohio",
+  "envVars": [
+    {
+      "key": "PORT",
+      "value": "10000"
+    }
+  ],
+  "healthCheckPath": "/api/status"
+}

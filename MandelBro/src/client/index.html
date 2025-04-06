@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MandelBro - Kids Game Creator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta name="description" content="MandelBro - A multiplayer kids game creator where you can design and share game worlds using simple descriptions!">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen">
+            <div class="loading-container">
+                <div class="logo">MandelBro</div>
+                <div class="loading-animation">
+                    <div class="fractal-loader"></div>
+                </div>
+                <div class="loading-text">Loading your adventure...</div>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen hidden">
+            <div class="menu-container">
+                <div class="logo-large">MandelBro</div>
+                <div class="tagline">Create, Explore, Share!</div>
+                
+                <div class="menu-buttons">
+                    <button id="create-world-btn" class="btn btn-primary">
+                        <span class="btn-icon">🌍</span>
+                        Create New World
+                    </button>
+                    <button id="join-world-btn" class="btn btn-secondary">
+                        <span class="btn-icon">🚪</span>
+                        Join Friend's World
+                    </button>
+                    <button id="tutorial-btn" class="btn btn-info">
+                        <span class="btn-icon">📚</span>
+                        How To Play
+                    </button>
+                    <button id="settings-btn" class="btn btn-neutral">
+                        <span class="btn-icon">⚙️</span>
+                        Settings
+                    </button>
+                </div>
+                
+                <div class="version-info">Version 1.0</div>
+            </div>
+        </div>
+
+        <!-- Create World Screen -->
+        <div id="create-world-screen" class="screen hidden">
+            <div class="screen-container">
+                <h1 class="screen-title">Create Your World</h1>
+                
+                <div class="avatar-selection">
+                    <h2>Choose Your Character</h2>
+                    <div class="avatar-options">
+                        <div class="avatar-option" data-color="red" data-shape="circle">
+                            <div class="avatar-preview red circle"></div>
+                        </div>
+                        <div class="avatar-option" data-color="blue" data-shape="square">
+                            <div class="avatar-preview blue square"></div>
+                        </div>
+                        <div class="avatar-option" data-color="green" data-shape="triangle">
+                            <div class="avatar-preview green triangle"></div>
+                        </div>
+                        <div class="avatar-option" data-color="yellow" data-shape="star">
+                            <div class="avatar-preview yellow star"></div>
+                        </div>
+                        <div class="avatar-option" data-color="purple" data-shape="heart">
+                            <div class="avatar-preview purple heart"></div>
+                        </div>
+                        <div class="avatar-option" data-color="orange" data-shape="diamond">
+                            <div class="avatar-preview orange diamond"></div>
+                        </div>
+                        <div class="avatar-option" data-color="pink" data-shape="octagon">
+                            <div class="avatar-preview pink octagon"></div>
+                        </div>
+                        <div class="avatar-option" data-color="teal" data-shape="hexagon">
+                            <div class="avatar-preview teal hexagon"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="name-input">
+                    <h2>Your Name</h2>
+                    <input type="text" id="player-name" maxlength="20" placeholder="Enter your name">
+                </div>
+                
+                <div class="world-description">
+                    <h2>Describe Your World</h2>
+                    <p class="helper-text">Tell us what kind of world you want to create!</p>
+                    
+                    <div class="input-methods">
+                        <div class="text-input-container">
+                            <textarea id="world-description-text" placeholder="Example: A mountain world with tall trees and a river" maxlength="200"></textarea>
+                            <div class="char-counter"><span id="char-count">0</span>/200</div>
+                        </div>
+                        
+                        <div class="voice-input-container">
+                            <button id="voice-input-btn" class="btn btn-circle">
+                                <span class="btn-icon">🎤</span>
+                            </button>
+                            <div class="voice-status">Click to speak</div>
+                        </div>
+                    </div>
+                    
+                    <div class="suggestion-chips">
+                        <div class="chip" data-suggestion="A mountain landscape with tall trees">Mountains & Trees</div>
+                        <div class="chip" data-suggestion="An island paradise with beaches">Island Paradise</div>
+                        <div class="chip" data-suggestion="A Minecraft-like world with blocks">Blocky World</div>
+                        <div class="chip" data-suggestion="A desert with cactus and sand dunes">Desert Adventure</div>
+                        <div class="chip" data-suggestion="A magical forest with colorful flowers">Magic Forest</div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="back-from-create" class="btn btn-secondary">Back</button>
+                    <button id="create-world-submit" class="btn btn-primary">Create World</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Join World Screen -->
+        <div id="join-world-screen" class="screen hidden">
+            <div class="screen-container">
+                <h1 class="screen-title">Join a Friend's World</h1>
+                
+                <div class="avatar-selection">
+                    <h2>Choose Your Character</h2>
+                    <div class="avatar-options">
+                        <div class="avatar-option" data-color="red" data-shape="circle">
+                            <div class="avatar-preview red circle"></div>
+                        </div>
+                        <div class="avatar-option" data-color="blue" data-shape="square">
+                            <div class="avatar-preview blue square"></div>
+                        </div>
+                        <div class="avatar-option" data-color="green" data-shape="triangle">
+                            <div class="avatar-preview green triangle"></div>
+                        </div>
+                        <div class="avatar-option" data-color="yellow" data-shape="star">
+                            <div class="avatar-preview yellow star"></div>
+                        </div>
+                        <div class="avatar-option" data-color="purple" data-shape="heart">
+                            <div class="avatar-preview purple heart"></div>
+                        </div>
+                        <div class="avatar-option" data-color="orange" data-shape="diamond">
+                            <div class="avatar-preview orange diamond"></div>
+                        </div>
+                        <div class="avatar-option" data-color="pink" data-shape="octagon">
+                            <div class="avatar-preview pink octagon"></div>
+                        </div>
+                        <div class="avatar-option" data-color="teal" data-shape="hexagon">
+                            <div class="avatar-preview teal hexagon"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="name-input">
+                    <h2>Your Name</h2>
+                    <input type="text" id="player-name-join" maxlength="20" placeholder="Enter your name">
+                </div>
+                
+                <div class="code-input">
+                    <h2>Enter World Code</h2>
+                    <p class="helper-text">Ask your friend for their world code</p>
+                    
+                    <div class="code-input-container">
+                        <input type="text" id="world-code" maxlength="8" placeholder="Enter code (e.g., AB12CD)" autocapitalize="characters">
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="back-from-join" class="btn btn-secondary">Back</button>
+                    <button id="join-world-submit" class="btn btn-primary">Join World</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tutorial Screen -->
+        <div id="tutorial-screen" class="screen hidden">
+            <div class="screen-container">
+                <h1 class="screen-title">How To Play</h1>
+                
+                <div class="tutorial-carousel">
+                    <div class="tutorial-slide active" data-slide="1">
+                        <div class="tutorial-image">
+                            <img src="assets/tutorial-1.png" alt="Create a world">
+                        </div>
+                        <h2>Create Your World</h2>
+                        <p>Describe the world you want to create using simple words. You can type or speak your description!</p>
+                    </div>
+                    
+                    <div class="tutorial-slide" data-slide="2">
+                        <div class="tutorial-image">
+                            <img src="assets/tutorial-2.png" alt="Share with friends">
+                        </div>
+                        <h2>Share With Friends</h2>
+                        <p>Share your world code with friends so they can join your adventure!</p>
+                    </div>
+                    
+                    <div class="tutorial-slide" data-slide="3">
+                        <div class="tutorial-image">
+                            <img src="assets/tutorial-3.png" alt="Explore together">
+                        </div>
+                        <h2>Explore Together</h2>
+                        <p>Move around, jump, build, and collect items with your friends!</p>
+                    </div>
+                    
+                    <div class="tutorial-slide" data-slide="4">
+                        <div class="tutorial-image">
+                            <img src="assets/tutorial-4.png" alt="Game controls">
+                        </div>
+                        <h2>Game Controls</h2>
+                        <p>
+                            <strong>WASD</strong> or <strong>Arrow Keys</strong>: Move<br>
+                            <strong>Space</strong>: Jump<br>
+                            <strong>E</strong>: Collect items<br>
+                            <strong>Click</strong>: Build or interact
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button id="prev-slide" class="btn btn-circle btn-small">
+                        <span class="btn-icon">◀</span>
+                    </button>
+                    <div class="slide-indicators">
+                        <div class="indicator active" data-slide="1"></div>
+                        <div class="indicator" data-slide="2"></div>
+                        <div class="indicator" data-slide="3"></div>
+                        <div class="indicator" data-slide="4"></div>
+                    </div>
+                    <button id="next-slide" class="btn btn-circle btn-small">
+                        <span class="btn-icon">▶</span>
+                    </button>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="back-from-tutorial" class="btn btn-primary">Got It!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settings-screen" class="screen hidden">
+            <div class="screen-container">
+                <h1 class="screen-title">Settings</h1>
+                
+                <div class="settings-section">
+                    <h2>Sound</h2>
+                    <div class="setting-item">
+                        <label for="music-volume">Music Volume</label>
+                        <input type="range" id="music-volume" min="0" max="100" value="70">
+                        <span class="volume-value">70%</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="sfx-volume">Sound Effects</label>
+                        <input type="range" id="sfx-volume" min="0" max="100" value="80">
+                        <span class="volume-value">80%</span>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h2>Accessibility</h2>
+                    <div class="setting-item checkbox">
+                        <input type="checkbox" id="high-contrast" name="high-contrast">
+                        <label for="high-contrast">High Contrast Mode</label>
+                    </div>
+                    <div class="setting-item checkbox">
+                        <input type="checkbox" id="reduced-motion" name="reduced-motion">
+                        <label for="reduced-motion">Reduced Motion</label>
+                    </div>
+                    <div class="setting-item">
+                        <label for="text-size">Text Size</label>
+                        <select id="text-size">
+                            <option value="small">Small</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="large">Large</option>
+                            <option value="extra-large">Extra Large</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h2>Performance</h2>
+                    <div class="setting-item">
+                        <label for="graphics-quality">Graphics Quality</label>
+                        <select id="graphics-quality">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="setting-item checkbox">
+                        <input type="checkbox" id="show-fps" name="show-fps">
+                        <label for="show-fps">Show FPS Counter</label>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="reset-settings" class="btn btn-secondary">Reset to Default</button>
+                    <button id="back-from-settings" class="btn btn-primary">Save & Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- World Creation Loading Screen -->
+        <div id="world-creation-loading" class="screen hidden">
+            <div class="loading-container">
+                <h1>Creating Your World</h1>
+                <div class="creation-steps">
+                    <div class="step current" data-step="1">
+                        <div class="step-icon">🧠</div>
+                        <div class="step-text">Understanding your description</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-icon">🌍</div>
+                        <div class="step-text">Generating terrain</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-icon">🌲</div>
+                        <div class="step-text">Adding trees and objects</div>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-icon">🎮</div>
+                        <div class="step-text">Preparing game world</div>
+                    </div>
+                </div>
+                <div class="loading-bar-container">
+                    <div class="loading-bar"></div>
+                </div>
+                <div class="loading-tip">
+                    <span class="tip-label">Tip:</span>
+                    <span class="tip-text">Try describing specific features like "mountains", "rivers", or "forests" in your world!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game World Screen -->
+        <div id="game-world" class="screen hidden">
+            <div id="game-container">
+                <canvas id="game-canvas"></canvas>
+            </div>
+            
+            <div id="game-ui">
+                <div id="world-info">
+                    <div id="world-name">World Name</div>
+                    <div id="world-code">Code: <span>ABCDEF</span></div>
+                </div>
+                
+                <div id="player-list">
+                    <!-- Player list will be populated dynamically -->
+                </div>
+                
+                <div id="game-controls">
+                    <button id="jump-btn" class="game-btn">Jump</button>
+                    <button id="action-btn" class="game-btn">Action</button>
+                    <div id="movement-pad">
+                        <button id="up-btn" class="dir-btn">▲</button>
+                        <button id="left-btn" class="dir-btn">◀</button>
+                        <button id="right-btn" class="dir-btn">▶</button>
+                        <button id="down-btn" class="dir-btn">▼</button>
+                    </div>
+                </div>
+                
+                <button id="menu-btn" class="btn btn-circle">
+                    <span class="btn-icon">≡</span>
+                </button>
+            </div>
+            
+            <div id="game-menu" class="hidden">
+                <div class="menu-panel">
+                    <h2>Game Menu</h2>
+                    <button id="invite-friends" class="btn btn-secondary">
+                        <span class="btn-icon">👋</span>
+                        Invite Friends
+                    </button>
+                    <button id="game-settings" class="btn btn-secondary">
+                        <span class="btn-icon">⚙️</span>
+                        Settings
+                    </button>
+                    <button id="help-btn" class="btn btn-secondary">
+                        <span class="btn-icon">❓</span>
+                        Help
+                    </button>
+                    <button id="exit-game" class="btn btn-danger">
+                        <span class="btn-icon">🚪</span>
+                        Exit to Main Menu
+                    </button>
+                </div>
+            </div>
+            
+            <div id="invite-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h2>Invite Friends</h2>
+                    <p>Share this code with your friends so they can join your world!</p>
+                    <div class="code-display">
+                        <span id="invite-code">ABCDEF</span>
+                        <button id="copy-code" class="btn btn-small">Copy</button>
+                    </div>
+                    <button id="close-invite" class="btn btn-primary">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Modal -->
+        <div id="error-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Oops!</h2>
+                <p id="error-message">Something went wrong.</p>
+                <button id="error-ok" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/speech.js"></script>
+    <script src="js/world-renderer.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

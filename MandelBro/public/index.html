@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MandelBro - Kids Game Creator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/loading.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen">
+            <div class="loading-container">
+                <h1>MandelBro</h1>
+                <p>Loading your adventure...</p>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen hidden">
+            <div class="menu-container">
+                <h1>MandelBro</h1>
+                <p>Create and explore infinite worlds with your friends!</p>
+                <div class="menu-buttons">
+                    <button id="create-world-btn" class="btn btn-primary">
+                        <span class="btn-icon">🌍</span> Create New World
+                    </button>
+                    <button id="join-world-btn" class="btn btn-secondary">
+                        <span class="btn-icon">👪</span> Join Friend's World
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create World Screen -->
+        <div id="create-world-screen" class="screen hidden">
+            <div class="screen-container">
+                <h1>Create Your World</h1>
+                
+                <h2>Choose Your Character</h2>
+                <div class="avatar-selection">
+                    <div class="avatar-option circle red" data-shape="circle" data-color="red"></div>
+                    <div class="avatar-option square blue" data-shape="square" data-color="blue"></div>
+                    <div class="avatar-option triangle green" data-shape="triangle" data-color="green"></div>
+                    <div class="avatar-option star yellow" data-shape="star" data-color="yellow"></div>
+                    <div class="avatar-option heart purple" data-shape="heart" data-color="purple"></div>
+                    <div class="avatar-option diamond orange" data-shape="diamond" data-color="orange"></div>
+                    <div class="avatar-option octagon pink" data-shape="octagon" data-color="pink"></div>
+                    <div class="avatar-option hexagon teal" data-shape="hexagon" data-color="teal"></div>
+                </div>
+                
+                <h2>Your Name</h2>
+                <input type="text" id="player-name" placeholder="Enter your name" maxlength="20">
+                
+                <h2>Describe Your World</h2>
+                <p class="hint">Tell us what kind of world you want to create. Be creative!</p>
+                <div class="text-input-container">
+                    <textarea id="world-description-text" placeholder="Example: A mountain landscape with tall trees and a river" maxlength="200"></textarea>
+                    <div class="text-controls">
+                        <button id="voice-input-btn" class="btn btn-icon">
+                            <span class="btn-icon">🎤</span>
+                            <span class="tooltip">Click to speak</span>
+                        </button>
+                        <div class="char-counter">
+                            <span id="char-count">0</span>/200
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="suggestion-chips">
+                    <div class="chip" data-suggestion="Mountains with snow, forests, and a river flowing through a valley">Mountains</div>
+                    <div class="chip" data-suggestion="Desert with sand dunes, cacti, and an oasis">Desert</div>
+                    <div class="chip" data-suggestion="Tropical island with beaches, palm trees, and coral reefs">Island</div>
+                    <div class="chip" data-suggestion="Dense forest with tall trees, mushrooms, and a small stream">Forest</div>
+                    <div class="chip" data-suggestion="Blocky world with cubes, caves, and floating islands">Blocky</div>
+                    <div class="chip" data-suggestion="Snowy landscape with ice caves, frozen lakes, and pine trees">Snow</div>
+                </div>
+                
+                <div class="button-container">
+                    <button id="back-from-create" class="btn btn-secondary">Back</button>
+                    <button id="create-world-submit" class="btn btn-primary">Create World</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Join World Screen -->
+        <div id="join-world-screen" class="screen hidden">
+            <div class="screen-container">
+                <h1>Join a World</h1>
+                
+                <h2>Choose Your Character</h2>
+                <div class="avatar-selection">
+                    <div class="avatar-option circle red" data-shape="circle" data-color="red"></div>
+                    <div class="avatar-option square blue" data-shape="square" data-color="blue"></div>
+                    <div class="avatar-option triangle green" data-shape="triangle" data-color="green"></div>
+                    <div class="avatar-option star yellow" data-shape="star" data-color="yellow"></div>
+                    <div class="avatar-option heart purple" data-shape="heart" data-color="purple"></div>
+                    <div class="avatar-option diamond orange" data-shape="diamond" data-color="orange"></div>
+                    <div class="avatar-option octagon pink" data-shape="octagon" data-color="pink"></div>
+                    <div class="avatar-option hexagon teal" data-shape="hexagon" data-color="teal"></div>
+                </div>
+                
+                <h2>Your Name</h2>
+                <input type="text" id="player-name-join" placeholder="Enter your name" maxlength="20">
+                
+                <h2>World Code</h2>
+                <p class="hint">Enter the 6-character code from your friend</p>
+                <input type="text" id="world-code" placeholder="Enter world code" maxlength="6">
+                
+                <div class="button-container">
+                    <button id="back-from-join" class="btn btn-secondary">Back</button>
+                    <button id="join-world-submit" class="btn btn-primary">Join World</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Selection Screen -->
+        <div id="template-selection-screen" class="screen hidden">
+            <div class="screen-container">
+                <h1>Choose a World Template</h1>
+                <p class="hint">Select a template to start with, then customize it to make it your own!</p>
+                
+                <div class="template-grid">
+                    <div class="template-card" data-template="blocky">
+                        <div class="template-icon">🧱</div>
+                        <h3>Blocky World</h3>
+                        <p>A Minecraft-style world with blocks, caves, and mountains</p>
+                    </div>
+                    
+                    <div class="template-card" data-template="airplane">
+                        <div class="template-icon">✈️</div>
+                        <h3>Sky Defender</h3>
+                        <p>Fly an airplane and shoot down UFOs to protect the city</p>
+                    </div>
+                    
+                    <div class="template-card" data-template="racing">
+                        <div class="template-icon">🏎️</div>
+                        <h3>Speed Racers</h3>
+                        <p>Race cars on exciting tracks with jumps and obstacles</p>
+                    </div>
+                    
+                    <div class="template-card" data-template="retro">
+                        <div class="template-icon">👾</div>
+                        <h3>Arcade Classic</h3>
+                        <p>Play in a retro 80s arcade game with pixels and neon</p>
+                    </div>
+                    
+                    <div class="template-card" data-template="underwater">
+                        <div class="template-icon">🐠</div>
+                        <h3>Ocean Explorer</h3>
+                        <p>Dive into an underwater world with coral reefs and sea creatures</p>
+                    </div>
+                    
+                    <div class="template-card" data-template="space">
+                        <div class="template-icon">🚀</div>
+                        <h3>Galaxy Explorer</h3>
+                        <p>Explore outer space with planets, stars, and asteroids</p>
+                    </div>
+                </div>
+                
+                <div class="button-container">
+                    <button id="back-from-templates" class="btn btn-secondary">Back</button>
+                    <button id="select-template" class="btn btn-primary">Select Template</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- World Creation Loading Screen -->
+        <div id="world-creation-loading" class="screen hidden">
+            <div class="loading-container">
+                <h1>Creating Your World</h1>
+                
+                <div class="creation-steps">
+                    <div class="step current">
+                        <div class="step-icon">🧠</div>
+                        <div class="step-text">
+                            <h3>Analyzing your description</h3>
+                            <p>Converting your words into Mandelbrot parameters</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-icon">🌍</div>
+                        <div class="step-text">
+                            <h3>Generating terrain</h3>
+                            <p>Creating mountains, valleys, and landscapes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-icon">🌲</div>
+                        <div class="step-text">
+                            <h3>Adding details</h3>
+                            <p>Placing trees, rocks, and other objects</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-icon">🚀</div>
+                        <div class="step-text">
+                            <h3>Finalizing world</h3>
+                            <p>Preparing your world for exploration</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="loading-progress">
+                    <div class="loading-bar-container">
+                        <div class="loading-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="loading-tip">
+                    <p><strong>Tip:</strong> The Mandelbrot set creates infinite detail, so every world is unique!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game World Screen -->
+        <div id="game-world" class="screen hidden">
+            <div class="game-container">
+                <div class="game-header">
+                    <div class="world-info">
+                        <h2 id="world-name">Your World</h2>
+                        <div id="world-code">Code: <span>ABCDEF</span></div>
+                    </div>
+                    <button id="menu-btn" class="btn btn-icon">
+                        <span class="btn-icon">☰</span>
+                    </button>
+                </div>
+                
+                <div class="game-content">
+                    <canvas id="game-canvas"></canvas>
+                </div>
+                
+                <div class="game-controls">
+                    <div class="movement-controls">
+                        <button id="up-btn" class="control-btn">↑</button>
+                        <button id="left-btn" class="control-btn">←</button>
+                        <button id="down-btn" class="control-btn">↓</button>
+                        <button id="right-btn" class="control-btn">→</button>
+                    </div>
+                    
+                    <div class="action-controls">
+                        <button id="jump-btn" class="control-btn">Jump</button>
+                        <button id="action-btn" class="control-btn">Action</button>
+                    </div>
+                </div>
+                
+                <div id="game-menu" class="menu-overlay hidden">
+                    <div class="menu-content">
+                        <h2>Menu</h2>
+                        <button id="invite-friends" class="menu-btn">Invite Friends</button>
+                        <button id="exit-game" class="menu-btn">Exit to Main Menu</button>
+                    </div>
+                </div>
+                
+                <div id="player-list" class="player-list">
+                    <div class="player-list-header">Players</div>
+                    <!-- Player items will be added dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Invite Modal -->
+        <div id="invite-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Invite Friends</h2>
+                <p>Share this code with your friends so they can join your world:</p>
+                <div class="invite-code-container">
+                    <div id="invite-code" class="invite-code">ABCDEF</div>
+                    <button id="copy-code" class="btn btn-primary">Copy Code</button>
+                </div>
+                <button id="close-invite" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+
+        <!-- Error Modal -->
+        <div id="error-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Oops!</h2>
+                <p id="error-message">Something went wrong. Please try again.</p>
+                <button id="error-ok" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/connection-manager.js"></script>
+    <script src="js/world-sharing.js"></script>
+    <script src="js/world-templates.js"></script>
+    <script src="js/template-selector.js"></script>
+    <script src="js/ai-generator.js"></script>
+    <script src="js/ai-renderer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
